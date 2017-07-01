@@ -1,0 +1,27 @@
+{
+  "name": "gymfd",
+  "version": "1.0.0",
+  "description": "Apps to find friends and do gym togeter",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.15.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chan24092005/gym-friend.git"
+  },
+  "keywords": [
+    "gym",
+    "friends"
+  ],
+  "author": "Ben",
+  "license": "",
+  "bugs": {
+    "url": "https://github.com/chan24092005/gym-friend/issues"
+  },
+  "homepage": "https://github.com/chan24092005/gym-friend#readme"
+}
