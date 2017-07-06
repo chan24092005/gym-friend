@@ -55,6 +55,8 @@ curl -H "Content-Type: application/json" -X POST -d '{"username":"Nick Cerminara
 
 # POST /api/users
 Create a new user with provided name and password.
+username and password are mandatory; others are optional; sports has to follow the format of sport schema
+Currently hasn't define how to represent the unit for weight and tall (maybe just append unit after value? like these: 170cm, 5.6f, 60kg, 150lbs). I just use cm/kg in this example.
 ```
 curl -H "Content-Type: application/json" -X POST -d '{"username":"ben1","password":"pass1","name":"benben","tall":170,"weight":60,"sports":[{"name":"swim"},{"name":"gym"}]}' http://localhost:3000/api/users | jq
 ```
