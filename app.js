@@ -8,25 +8,11 @@ var jwt    = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('./config'); // get our config file
 var User   = require('./models/user'); // get our mongoose model
 
-
-// app.get('/', function (req, res) {
-//   res.send('Hello World!')
-// })
-//
-// app.listen(3000, function () {
-//   console.log('Example app listening on port 3000!')
-// })
-
-// var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/test');
-
-
 // =======================
 // configuration =========
 // =======================
-var port = process.env.PORT || 3000; // used to create, sign, and verify tokens
-// mongoose.connect(config.database); // connect to database
-app.set('superSecret', config.secret); // secret variable
+var port = 3000;
+mongoose.connect(config.database);
 
 // use body parser so we can get info from POST and/or URL parameters
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -43,11 +29,11 @@ app.get('/', function(req, res) {
   res.json({message: 'Hello World!'});
 })
 
-app.get('/setup', function(req, res) {
+app.get('/createAdmin', function(req, res) {
 
   // create a sample user
   var nick = new User({
-    name: 'Nick Cerminara',
+    username: 'Nick Cerminara',
     password: 'password',
     admin: true
   });
@@ -62,17 +48,17 @@ app.get('/setup', function(req, res) {
 });
 
 // API ROUTES -------------------
-// we'll get to these in a second
 
 // get an instance of the router for api routes
 var apiRoutes = express.Router();
 
 // TODO: route to authenticate a user (POST http://localhost:8080/api/authenticate)
-apiRoutes.post('/authenticate', function(req, res) {
-
+apiRoutes.post('/login', function(req, res) {
+  console.log(req.body.username);
+  console.log(req.body.password);
   // find the user
   User.findOne({
-    name: req.body.name
+    username: req.body.username
   }, function(err, user) {
 
     if (err) throw err;
@@ -89,9 +75,9 @@ apiRoutes.post('/authenticate', function(req, res) {
         // if user is found and password is right
         // create a token
         var token = jwt.sign({
-          name: user.name
-        }, app.get('superSecret'), {
-          expiresIn: 1440 // expires in 24 hours
+          username: user.username
+        }, config.secret, {
+          expiresIn: '24h' // expires in 24 hours
         });
 
         // return the information including token as JSON
@@ -115,10 +101,26 @@ apiRoutes.use(function(req, res, next) {
   console.log('req.header')
   console.log(req.path)
   // decode token
-  if (token || req.path === '/authenticate') {
 
+  var exceptionEndPoints = [
+    {path: '/authenticate', method: 'POST'},
+    {path: '/users', method: 'POST'}
+  ];
+
+  function isExceRes(req) {
+    return exceptionEndPoints.some(function(ep) {
+      console.log(ep);
+      console.log(req.path);
+      console.log(req.method);
+      return req.path === ep.path && req.method === ep.method;
+    });
+  }
+
+  if (isExceRes(req)) {
+    next();
+  } else if (token) {
     // verifies secret and checks exp
-    jwt.verify(token, app.get('superSecret'), function(err, decoded) {
+    jwt.verify(token, config.secret, function(err, decoded) {
       console.log('err')
       console.log(err)
       console.log(decoded)
@@ -153,6 +155,32 @@ apiRoutes.get('/users', function(req, res) {
   User.find({}, function(err, users) {
     res.json(users);
   });
+});
+
+// Create a new user
+apiRoutes.post('/users', function(req, res) {
+  // username and password are mandatory; others are optional; sports has to follow the format of sport schema
+  if (!req.body.username || !req.body.password) {
+    res.json({error: 'wrong/missing input'});
+  } else {
+    var newUser = new User({
+      username: req.body.username,
+      password: req.body.password,
+      name: req.body.name?req.body.name:'',
+      tall: req.body.tall?req.body.tall:null,
+      weight: req.body.weight?req.body.weight:null,
+      admin: false,
+      sports: req.body.sports?req.body.sports:[]
+    });
+
+    // save the sample user
+    newUser.save(function(err) {
+      if (err) throw err;
+
+      console.log('User saved successfully');
+      res.json({ success: true });
+    });
+  }
 });
 
 // apply the routes to our application with the prefix /api
