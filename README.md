@@ -21,3 +21,6 @@ Open `http://localhost:3000/` in browser or run `curl -X GET http://localhost:30
 
 See app.js and api-description.apib for the API details.
 You can use [Atom](https://atom.io/) with [API Blueprint Preview](https://atom.io/packages/api-blueprint-preview) to view api-description.apib.
+
+Also see [API Blueprint](https://apiblueprint.org/) and [dredd](https://github.com/apiaryio/dredd) for testing API.
+I haven't complete dredd function yet.
