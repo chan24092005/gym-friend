@@ -19,8 +19,8 @@ node app.js
 Open `http://localhost:3000/` in browser or run `curl -X GET http://localhost:3000/` in terminaal and you should see the Hello World message.
 
 
-See app.js and api-description.apib for the API details.
-You can use [Atom](https://atom.io/) with [API Blueprint Preview](https://atom.io/packages/api-blueprint-preview) to view api-description.apib.
+See `app.js` and `api-description.md` for the API details.
+You can use [Atom](https://atom.io/) with [API Blueprint Preview](https://atom.io/packages/api-blueprint-preview) to preview `api-description.md`. Or just use `ctrl-shift-m` to preview markdown file in Atom. :)
 
 Also see [API Blueprint](https://apiblueprint.org/) and [dredd](https://github.com/apiaryio/dredd) for testing API.
 I haven't complete dredd function yet.
