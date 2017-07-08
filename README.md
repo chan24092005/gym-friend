@@ -19,7 +19,8 @@ node app.js
 Open `http://localhost:3000/` in browser or run `curl -X GET http://localhost:3000/` in terminaal and you should see the Hello World message.
 
 
-See `app.js` and `api-description.md` for the API details.
+See `app.js` and `api-description.md` for the API details. I followed [this tutorial](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens) to build the api.
+
 You can use [Atom](https://atom.io/) with [API Blueprint Preview](https://atom.io/packages/api-blueprint-preview) to preview `api-description.md`. Or just use `ctrl-shift-m` to preview markdown file in Atom. :)
 
 Also see [API Blueprint](https://apiblueprint.org/) and [dredd](https://github.com/apiaryio/dredd) for testing API.
