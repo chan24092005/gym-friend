@@ -1,4 +1,6 @@
 # gym-friend
+Install [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) and start the server.
+
 Install https://github.com/isaacs/nave
 Then go to the project folder and run `nave auto` to use nave enviroment. The command will install nodejs into the enviroment folder. To leave the enviroment, which is a sub-shell, run `exit`. Remember to use the enviroment before running the following command. To check you are inside the enviroment, run `which node`, it should be inside the `gym-friend-6.11.0` folder.
 
