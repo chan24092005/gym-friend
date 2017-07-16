@@ -37,7 +37,7 @@ curl -H "Content-Type: application/json" -X GET -d '{"token":"eyJhbGciOiJIUzI1Ni
 
 + Response 200 (application/json; charset=utf-8)
 
-        [{"_id":"595ba2f1f1016b1fa8ebe9e4","username":"Nick Cerminara","password":"password","admin":true,"__v":0}]
+        [{"username":"Nick Cerminara","password":"password","admin":true}]
 
 # POST /api/login
 ```
