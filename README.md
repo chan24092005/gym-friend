@@ -1,4 +1,6 @@
 # gym-friend
+Install [MongoDB](https://docs.mongodb.com/manual/administration/install-community/) and start the database.
+
 Install https://github.com/isaacs/nave
 Then go to the project folder and run `nave auto` to use nave enviroment. The command will install nodejs into the enviroment folder. To leave the enviroment, which is a sub-shell, run `exit`. Remember to use the enviroment before running the following command. To check you are inside the enviroment, run `which node`, it should be inside the `gym-friend-6.11.0` folder.
 
@@ -19,7 +21,8 @@ node app.js
 Open `http://localhost:3000/` in browser or run `curl -X GET http://localhost:3000/` in terminaal and you should see the Hello World message.
 
 
-See `app.js` and `api-description.md` for the API details.
+See `app.js` and `api-description.md` for the API details. I followed [this tutorial](https://scotch.io/tutorials/authenticate-a-node-js-api-with-json-web-tokens) to build the api.
+
 You can use [Atom](https://atom.io/) with [API Blueprint Preview](https://atom.io/packages/api-blueprint-preview) to preview `api-description.md`. Or just use `ctrl-shift-m` to preview markdown file in Atom. :)
 
 Also see [API Blueprint](https://apiblueprint.org/) and [dredd](https://github.com/apiaryio/dredd) for testing API.
