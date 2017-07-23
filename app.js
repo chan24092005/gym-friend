@@ -6,7 +6,8 @@ var mongoose    = require('mongoose');
 
 var config = require('./config'); // get our config file
 
-var authRoutes = require('./modules/auth.js')
+var authRoutes = require('./modules/auth.js');
+var User = require('./models/user');
 // =======================
 // configuration =========
 // =======================
@@ -33,7 +34,7 @@ app.get('/createAdmin', function(req, res) {
 
   // create a sample user
   var nick = new User({
-    username: 'Nick Cerminara',
+    username: 'admin',
     password: 'password',
     admin: true
   });

@@ -89,7 +89,25 @@ apiRoutes.use(function(req, res, next) {
       } else {
         // if everything is good, save to request for use in other routes
         req.decoded = decoded;
-        next();
+
+
+        User.findOne({
+          username: req.decoded.username
+        }, function(err, user) {
+
+          if (err) throw err;
+
+          if (!user) {
+            res.json({ success: false, message: 'Authentication failed. User not found.' });
+          } else if (user) {
+            req.user=user;
+            next();
+          }
+
+        });
+
+
+
       }
     });
 
@@ -112,9 +130,39 @@ apiRoutes.get('/', function(req, res) {
 
 // route to return all users (GET http://localhost:8080/api/users)
 apiRoutes.get('/users', function(req, res) {
-  User.find({}, function(err, users) {
-    res.json(users);
-  });
+  console.log('user11111111111111:');
+  console.log(req.user);
+  if (req.user.admin) {
+    User.find({}, function(err, users) {
+      res.json(users);
+    });
+  } else {
+    res.json({'error': 'no permission'});
+  }
+});
+
+// get own account information
+apiRoutes.get('/users/self', function(req, res) {
+  console.log('user11111111111111:');
+  console.log(req.user);
+  res.json(req.user);
+});
+// update own account information
+apiRoutes.post('/users/self', function(req, res) {
+  console.log('user11111111111111:');
+  console.log(req.user);
+  if (req.user.tall) {
+    req.user.tall = req.body.tall;
+  }
+  if (req.user.weight) {
+    req.user.weight = req.body.weight;
+  }
+  if (req.user.sport) {
+    req.user.sport = req.body.sport;
+  }
+
+
+  res.json(req.user);
 });
 
 // Create a new user
