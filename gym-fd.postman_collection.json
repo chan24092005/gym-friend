@@ -1,0 +1,144 @@
+{
+	"variables": [],
+	"info": {
+		"name": "gym-fd",
+		"_postman_id": "faabd62b-4652-db6d-d9bb-1afa464b2ead",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create admin",
+			"request": {
+				"url": "{{url}}/createAdmin",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", data.token.token);",
+							""
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{url}}/api/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "{{username}}",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get all users",
+			"request": {
+				"url": "{{url}}/api/users",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "create user",
+			"request": {
+				"url": "{{url}}/api/users",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"ben4\",\n    \"password\": \"pass4\",\n    \"name\": \"benben\",\n    \"tall\": \"170\",\n    \"weight\": \"60\",\n    \"sports\": [\n    \t{\n    \t\t\"name\": \"swim\"\n    \t},\n    \t{\n    \t\t\"name\": \"gym\"\n    \t}\n    ]\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "get own account data",
+			"request": {
+				"url": "{{url}}/api/users/self",
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "get own account data"
+			},
+			"response": []
+		},
+		{
+			"name": "update user",
+			"request": {
+				"url": "{{url}}/api/users/self",
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-access-token",
+						"value": "{{token}}",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": "update own user"
+			},
+			"response": []
+		}
+	]
+}
